@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Food Mall | Farm-Fresh Premium Foodstuffs</title>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --cream: #FDF6E3;
+      --warm-white: #FEFCF6;
+      --gold: #C8922A;
+      --gold-light: #F0C060;
+      --gold-pale: #FBF0D3;
+      --earth: #3D2B1F;
+      --earth-mid: #7A5C42;
+      --earth-light: #B89070;
+      --sage: #5C7A55;
+      --sage-light: #8DAB86;
+      --terracotta: #C0603A;
+      --terracotta-light: #E89070;
+      --charcoal: #2A2018;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm-white);
+      color: var(--earth);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 5%;
+      background: rgba(253, 246, 227, 0.92);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(200, 146, 42, 0.15);
+      transition: all 0.3s ease;
+    }
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 42px; height: 42px;
+      background: var(--earth);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold-light);
+      font-size: 20px;
+    }
+    .logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--earth);
+    }
+    .logo-text span { color: var(--gold); }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--earth-mid);
+      font-weight: 500;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 2px;
+      background: var(--gold);
+      transition: width 0.25s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      background: var(--earth);
+      color: var(--gold-light) !important;
+      padding: 8px 22px;
+      border-radius: 40px;
+      font-weight: 600 !important;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--charcoal) !important; transform: translateY(-1px); }
+    .nav-cta::after { display: none !important; }
+    .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--earth);
+      cursor: pointer;
+    }
+
+    /* ===== HERO ===== */
+    #hero {
+      min-height: 100vh;
+      background: var(--cream);
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding-top: 72px;
+    }
+    .hero-bg-pattern {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 80%, rgba(200,146,42,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(192,96,58,0.07) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 60px 5%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      width: 100%;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(200,146,42,0.12);
+      border: 1px solid rgba(200,146,42,0.3);
+      color: var(--gold);
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      line-height: 1.1;
+      color: var(--earth);
+      margin-bottom: 24px;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-desc {
+      font-size: 1.1rem;
+      line-height: 1.75;
+      color: var(--earth-mid);
+      max-width: 480px;
+      margin-bottom: 40px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--earth);
+      color: var(--gold-light);
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      transition: all 0.25s;
+      border: 2px solid var(--earth);
+    }
+    .btn-primary:hover { background: var(--charcoal); border-color: var(--charcoal); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(61,43,31,0.25); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--earth);
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      transition: all 0.25s;
+      border: 2px solid rgba(61,43,31,0.25);
+    }
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Hero stats */
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(61,43,31,0.1);
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--earth);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--earth-light);
+      font-weight: 500;
+      margin-top: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* Hero images */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-main-img {
+      width: 100%;
+      max-width: 480px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 10px solid white;
+      box-shadow: 0 30px 70px rgba(61,43,31,0.2);
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-16px); }
+    }
+    .hero-pill {
+      position: absolute;
+      background: white;
+      border-radius: 60px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(61,43,31,0.15);
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--earth);
+    }
+    .hero-pill .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+    .pill-1 { top: 12%; right: -8%; }
+    .pill-2 { bottom: 20%; left: -8%; }
+    .pill-3 { top: 50%; right: -12%; }
+
+    /* ===== MARQUEE STRIP ===== */
+    .marquee-strip {
+      background: var(--earth);
+      color: var(--gold-light);
+      padding: 14px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .marquee-track {
+      display: inline-flex;
+      animation: marquee 28s linear infinite;
+      gap: 0;
+    }
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 36px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .marquee-item i { color: var(--gold); }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ===== SECTION HEADER ===== */
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-tag::before, .section-tag::after {
+      content: '';
+      width: 28px; height: 1.5px;
+      background: var(--gold);
+    }
+    .section-title {
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      color: var(--earth);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .section-title em { font-style: italic; color: var(--gold); }
+    .section-desc {
+      color: var(--earth-mid);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    /* ===== CATEGORIES ===== */
+    #categories {
+      padding: 100px 5%;
+      background: var(--warm-white);
+    }
+    .categories-inner { max-width: 1280px; margin: 0 auto; }
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .cat-card {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    .cat-card img {
+      width: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.2, 0, 0.2, 1);
+    }
+    .cat-card:hover img { transform: scale(1.07); }
+    .cat-card.tall img { height: 520px; }
+    .cat-card.short img { height: 240px; }
+    .cat-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(42,32,24,0.75) 0%, transparent 55%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 28px;
+      transition: background 0.3s;
+    }
+    .cat-card:hover .cat-overlay {
+      background: linear-gradient(to top, rgba(42,32,24,0.85) 0%, transparent 60%);
+    }
+    .cat-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 6px;
+    }
+    .cat-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: white;
+      line-height: 1.2;
+    }
+    .cat-count {
+      margin-top: 6px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.65);
+    }
+    .cat-arrow {
+      position: absolute;
+      top: 20px; right: 20px;
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+      font-size: 0.85rem;
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: all 0.3s;
+    }
+    .cat-card:hover .cat-arrow { opacity: 1; transform: translateX(0); }
+    .cat-col { display: flex; flex-direction: column; gap: 20px; }
+
+    /* ===== PRODUCTS ===== */
+    #products {
+      padding: 100px 5%;
+      background: var(--cream);
+    }
+    .products-inner { max-width: 1280px; margin: 0 auto; }
+    .prod-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+    .prod-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.2, 0.8, 0.3, 1);
+      border: 1px solid rgba(200,146,42,0.1);
+    }
+    .prod-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 50px rgba(61,43,31,0.15);
+    }
+    .prod-img-wrap {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+    .prod-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .prod-card:hover .prod-img-wrap img { transform: scale(1.08); }
+    .prod-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+    .badge-organic { background: var(--sage); color: white; }
+    .badge-premium { background: var(--gold); color: white; }
+    .badge-new { background: var(--terracotta); color: white; }
+    .badge-bestseller { background: var(--earth); color: var(--gold-light); }
+    .prod-fav {
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 34px; height: 34px;
+      background: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem;
+      color: #ccc;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .prod-fav:hover { color: var(--terracotta); transform: scale(1.1); }
+    .prod-info { padding: 18px 20px 22px; }
+    .prod-category {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--earth-light);
+      margin-bottom: 6px;
+    }
+    .prod-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--earth);
+      margin-bottom: 6px;
+    }
+    .prod-desc {
+      font-size: 0.82rem;
+      color: var(--earth-mid);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+    .prod-stars {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 14px;
+    }
+    .prod-stars i { color: var(--gold); font-size: 0.72rem; }
+    .prod-stars span { font-size: 0.75rem; color: var(--earth-light); margin-left: 3px; }
+    .prod-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .prod-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--earth);
+    }
+    .prod-unit {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      color: var(--earth-light);
+      font-weight: 400;
+    }
+    .add-btn {
+      background: var(--earth);
+      color: var(--gold-light);
+      border: none;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .add-btn:hover { background: var(--gold); color: white; transform: scale(1.08); }
+    .view-all-wrap { text-align: center; margin-top: 50px; }
+
+    /* ===== BANNER ===== */
+    .banner-section {
+      padding: 80px 5%;
+      background: var(--earth);
+    }
+    .banner-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .banner-left { color: white; }
+    .banner-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(200,146,42,0.2);
+      border: 1px solid rgba(200,146,42,0.35);
+      color: var(--gold-light);
+      padding: 5px 14px;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .banner-title {
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: white;
+      margin-bottom: 20px;
+    }
+    .banner-title em { color: var(--gold-light); font-style: italic; }
+    .banner-desc {
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+      margin-bottom: 30px;
+      font-size: 1rem;
+    }
+    .banner-imgs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .banner-imgs img {
+      border-radius: 18px;
+      width: 100%;
+      object-fit: cover;
+    }
+    .banner-imgs img:first-child { height: 220px; }
+    .banner-imgs img:last-child { height: 220px; margin-top: 28px; }
+
+    /* ===== WHY US ===== */
+    #about {
+      padding: 100px 5%;
+      background: var(--warm-white);
+    }
+    .about-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-imgs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .about-img-1 { border-radius: 24px; width: 100%; height: 300px; object-fit: cover; }
+    .about-img-2 { border-radius: 24px; width: 100%; height: 300px; object-fit: cover; margin-top: 40px; }
+    .about-img-3 { border-radius: 24px; width: 100%; height: 200px; object-fit: cover; grid-column: span 2; }
+    .about-right {}
+    .about-mini-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(92,122,85,0.1);
+      border: 1px solid rgba(92,122,85,0.25);
+      color: var(--sage);
+      padding: 5px 14px;
+      border-radius: 40px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .about-title {
+      font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+      color: var(--earth);
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .about-title em { color: var(--gold); font-style: italic; }
+    .about-desc {
+      color: var(--earth-mid);
+      line-height: 1.75;
+      margin-bottom: 28px;
+      font-size: 1rem;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px;
+      background: var(--cream);
+      border-radius: 14px;
+      border: 1px solid rgba(200,146,42,0.1);
+    }
+    .feature-icon {
+      width: 38px; height: 38px;
+      background: var(--earth);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold-light);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .feature-name {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--earth);
+      margin-bottom: 2px;
+    }
+    .feature-desc {
+      font-size: 0.78rem;
+      color: var(--earth-mid);
+      line-height: 1.4;
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    #reviews {
+      padding: 100px 5%;
+      background: var(--cream);
+    }
+    .reviews-inner { max-width: 1280px; margin: 0 auto; }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .review-card {
+      background: white;
+      border-radius: 20px;
+      padding: 28px;
+      border: 1px solid rgba(200,146,42,0.1);
+      transition: box-shadow 0.3s;
+    }
+    .review-card:hover { box-shadow: 0 16px 40px rgba(61,43,31,0.1); }
+    .review-quote {
+      font-size: 2.5rem;
+      line-height: 1;
+      color: var(--gold-light);
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 12px;
+    }
+    .review-text {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--earth-mid);
+      margin-bottom: 20px;
+    }
+    .review-stars { color: var(--gold); font-size: 0.8rem; margin-bottom: 16px; }
+    .reviewer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(61,43,31,0.08);
+    }
+    .reviewer-img {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .reviewer-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--earth);
+    }
+    .reviewer-loc {
+      font-size: 0.78rem;
+      color: var(--earth-light);
+    }
+
+    /* ===== CONTACT ===== */
+    #contact {
+      padding: 100px 5%;
+      background: var(--warm-white);
+    }
+    .contact-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .contact-left { }
+    .contact-info-cards {
+      margin-top: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .contact-info-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      background: var(--cream);
+      border-radius: 16px;
+      border: 1px solid rgba(200,146,42,0.1);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .contact-info-card:hover { border-color: var(--gold); transform: translateX(4px); }
+    .contact-info-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .icon-phone { background: rgba(92,122,85,0.12); color: var(--sage); }
+    .icon-email { background: rgba(200,146,42,0.12); color: var(--gold); }
+    .icon-wa { background: rgba(37,211,102,0.12); color: #25D366; }
+    .icon-addr { background: rgba(192,96,58,0.12); color: var(--terracotta); }
+    .contact-info-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--earth-light);
+      margin-bottom: 2px;
+    }
+    .contact-info-val {
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: var(--earth);
+    }
+    .contact-form-wrap {
+      background: white;
+      border-radius: 24px;
+      padding: 40px;
+      border: 1px solid rgba(200,146,42,0.1);
+      box-shadow: 0 20px 50px rgba(61,43,31,0.07);
+    }
+    .form-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--earth);
+      margin-bottom: 6px;
+    }
+    .form-sub {
+      color: var(--earth-mid);
+      font-size: 0.9rem;
+      margin-bottom: 28px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: span 2; }
+    .form-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--earth);
+      letter-spacing: 0.03em;
+    }
+    .form-input {
+      padding: 12px 16px;
+      border: 1.5px solid rgba(61,43,31,0.15);
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--earth);
+      background: var(--warm-white);
+      transition: all 0.2s;
+      outline: none;
+    }
+    .form-input::placeholder { color: var(--earth-light); }
+    .form-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(200,146,42,0.12);
+    }
+    textarea.form-input { resize: vertical; min-height: 110px; }
+    .form-submit {
+      width: 100%;
+      padding: 15px;
+      background: var(--earth);
+      color: var(--gold-light);
+      border: none;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: all 0.25s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      margin-top: 6px;
+    }
+    .form-submit:hover { background: var(--charcoal); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(61,43,31,0.2); }
+    .form-success {
+      text-align: center;
+      padding: 14px;
+      background: rgba(92,122,85,0.1);
+      border: 1px solid rgba(92,122,85,0.25);
+      border-radius: 12px;
+      color: var(--sage);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-top: 14px;
+    }
+    .map-wrap {
+      border-radius: 20px;
+      overflow: hidden;
+      margin-top: 36px;
+      height: 220px;
+      border: 1px solid rgba(200,146,42,0.1);
+    }
+    .map-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.65);
+      padding: 70px 5% 30px;
+    }
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 50px;
+      padding-bottom: 50px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 30px;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .footer-logo-icon {
+      width: 38px; height: 38px;
+      background: rgba(200,146,42,0.2);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold-light);
+      font-size: 1rem;
+    }
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: white;
+    }
+    .footer-brand span { color: var(--gold-light); }
+    .footer-tagline {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      margin-bottom: 20px;
+    }
+    .social-links { display: flex; gap: 10px; }
+    .social-link {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .social-link:hover { background: var(--gold); color: white; }
+    .footer-col-title {
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: white;
+      margin-bottom: 18px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.55);
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold-light); }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.82rem;
+    }
+    .footer-bottom-links { display: flex; gap: 20px; }
+    .footer-bottom-links a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+    .footer-bottom-links a:hover { color: var(--gold-light); }
+
+    /* ===== WHATSAPP FLOAT ===== */
+    .wa-float {
+      position: fixed;
+      bottom: 32px; right: 32px;
+      z-index: 200;
+      background: #25D366;
+      color: white;
+      border-radius: 60px;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(37,211,102,0.4);
+      transition: all 0.2s;
+    }
+    .wa-float:hover { transform: scale(1.04) translateY(-2px); box-shadow: 0 16px 40px rgba(37,211,102,0.5); }
+    .wa-float i { font-size: 1.3rem; }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 1024px) {
+      .prod-grid { grid-template-columns: repeat(2, 1fr); }
+      .cat-grid { grid-template-columns: 1fr 1fr; }
+      .cat-card.tall img { height: 400px; }
+      .reviews-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .about-inner { grid-template-columns: 1fr; }
+      .about-imgs { order: -1; }
+      .banner-inner { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+      .hero-desc { margin: 0 auto 36px; }
+      .hero-actions { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .hero-visual { order: -1; }
+      .hero-main-img { max-width: 300px; }
+      .pill-1, .pill-2, .pill-3 { display: none; }
+      .cat-grid { grid-template-columns: 1fr; }
+      .prod-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-inner { grid-template-columns: 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 30px; }
+      .footer-bottom { flex-direction: column; gap: 14px; text-align: center; }
+      .nav-links { display: none; }
+      .menu-btn { display: block; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: span 1; }
+      .wa-float span { display: none; }
+      .wa-float { padding: 14px; border-radius: 50%; }
+    }
+    @media (max-width: 520px) {
+      .prod-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/2348123456789?text=Hello%20Food%20Mall!%20I'd%20love%20to%20order%20some%20fresh%20foodstuffs." target="_blank" class="wa-float">
+  <i class="fab fa-whatsapp"></i>
+  <span>Chat on WhatsApp</span>
+</a>
+
+<!-- NAV -->
+<nav x-data="{ open: false }">
+  <div class="nav-inner">
+    <a href="#hero" class="logo">
+      <div class="logo-icon"><i class="fas fa-seedling"></i></div>
+      <span class="logo-text"><span>Food</span>Mall</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#categories">Shop</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#contact" class="nav-cta">Order Now</a></li>
+    </ul>
+    <button class="menu-btn" @click="open=!open"><i :class="open ? 'fas fa-times' : 'fas fa-bars'"></i></button>
+  </div>
+  <!-- Mobile dropdown -->
+  <div x-show="open" x-transition style="background: white; padding: 20px 5%; border-top: 1px solid rgba(200,146,42,0.1);">
+    <ul style="list-style:none; display:flex; flex-direction:column; gap:16px;">
+      <li><a href="#hero" @click="open=false" style="text-decoration:none; color:var(--earth); font-weight:500;">Home</a></li>
+      <li><a href="#categories" @click="open=false" style="text-decoration:none; color:var(--earth); font-weight:500;">Shop</a></li>
+      <li><a href="#products" @click="open=false" style="text-decoration:none; color:var(--earth); font-weight:500;">Products</a></li>
+      <li><a href="#about" @click="open=false" style="text-decoration:none; color:var(--earth); font-weight:500;">About</a></li>
+      <li><a href="#contact" @click="open=false" style="text-decoration:none; color:var(--earth); font-weight:500;">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge"><i class="fas fa-leaf"></i> Farm Fresh · Organic · Authentic</div>
+      <h1 class="hero-title">
+        The Finest<br><em>Foodstuffs,</em><br>From Farm to Table
+      </h1>
+      <p class="hero-desc">Premium grains, spices, legumes, dried fruits, and traditional condiments — sourced directly from trusted farms and artisanal producers. No preservatives, no shortcuts.</p>
+      <div class="hero-actions">
+        <a href="#products" class="btn-primary">Explore Collection <i class="fas fa-arrow-right"></i></a>
+        <a href="#about" class="btn-secondary"><i class="fas fa-play-circle"></i> Our Story</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">500+</div>
+          <div class="stat-label">Products</div>
+        </div>
+        <div style="width:1px; background: rgba(61,43,31,0.12);"></div>
+        <div>
+          <div class="stat-num">12K+</div>
+          <div class="stat-label">Customers</div>
+        </div>
+        <div style="width:1px; background: rgba(61,43,31,0.12);"></div>
+        <div>
+          <div class="stat-num">98%</div>
+          <div class="stat-label">Satisfaction</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&h=600&fit=crop&crop=center" alt="Fresh produce market" class="hero-main-img">
+      <div class="hero-pill pill-1">
+        <div class="dot" style="background: var(--sage);"></div>
+        100% Organic Certified
+      </div>
+      <div class="hero-pill pill-2">
+        <div class="dot" style="background: var(--gold);"></div>
+        Same-Day Dispatch
+      </div>
+      <div class="hero-pill pill-3">
+        <i class="fas fa-star" style="color: var(--gold); font-size:0.8rem;"></i>
+        4.9 · 3,200+ Reviews
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE STRIP -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span class="marquee-item"><i class="fas fa-seedling"></i> Organic Grains</span>
+    <span class="marquee-item"><i class="fas fa-pepper-hot"></i> Artisan Spices</span>
+    <span class="marquee-item"><i class="fas fa-jar"></i> Raw Honey</span>
+    <span class="marquee-item"><i class="fas fa-wheat-awn"></i> Premium Flour</span>
+    <span class="marquee-item"><i class="fas fa-leaf"></i> Dried Herbs</span>
+    <span class="marquee-item"><i class="fas fa-seedling"></i> Fair Trade Certified</span>
+    <span class="marquee-item"><i class="fas fa-truck-fast"></i> Fast Delivery</span>
+    <span class="marquee-item"><i class="fas fa-heart"></i> Loved by 12,000+ Families</span>
+    <!-- repeat for seamless loop -->
+    <span class="marquee-item"><i class="fas fa-seedling"></i> Organic Grains</span>
+    <span class="marquee-item"><i class="fas fa-pepper-hot"></i> Artisan Spices</span>
+    <span class="marquee-item"><i class="fas fa-jar"></i> Raw Honey</span>
+    <span class="marquee-item"><i class="fas fa-wheat-awn"></i> Premium Flour</span>
+    <span class="marquee-item"><i class="fas fa-leaf"></i> Dried Herbs</span>
+    <span class="marquee-item"><i class="fas fa-seedling"></i> Fair Trade Certified</span>
+    <span class="marquee-item"><i class="fas fa-truck-fast"></i> Fast Delivery</span>
+    <span class="marquee-item"><i class="fas fa-heart"></i> Loved by 12,000+ Families</span>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section id="categories">
+  <div class="categories-inner">
+    <div class="section-header fade-up">
+      <div class="section-tag">Shop by Category</div>
+      <h2 class="section-title">Explore Our <em>Collection</em></h2>
+      <p class="section-desc">From staple grains to exotic spices — every shelf is stocked with nature's finest, carefully curated for quality you can taste.</p>
+    </div>
+    <div class="cat-grid">
+      <!-- Main tall card -->
+      <div class="cat-col">
+        <a href="#products" class="cat-card tall">
+          <img src="https://images.unsplash.com/photo-1586201375761-83865001e8ac?w=600&h=700&fit=crop" alt="Grains & Rice">
+          <div class="cat-overlay">
+            <div class="cat-tag">Most Popular</div>
+            <div class="cat-name">Grains & Rice</div>
+            <div class="cat-count">48 products</div>
+          </div>
+          <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+      </div>
+      <!-- Right column -->
+      <div class="cat-col">
+        <a href="#products" class="cat-card short">
+          <img src="https://images.unsplash.com/photo-1506976785307-8732e854ad03?w=600&h=300&fit=crop" alt="Spices & Herbs">
+          <div class="cat-overlay">
+            <div class="cat-tag">Aromatic</div>
+            <div class="cat-name">Spices & Herbs</div>
+            <div class="cat-count">120+ blends</div>
+          </div>
+          <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+        <a href="#products" class="cat-card short">
+          <img src="https://images.unsplash.com/photo-1515543237350-b3eea1ec8082?w=600&h=300&fit=crop&crop=center" alt="Legumes & Beans">
+          <div class="cat-overlay">
+            <div class="cat-tag">Protein Rich</div>
+            <div class="cat-name">Legumes & Beans</div>
+            <div class="cat-count">34 varieties</div>
+          </div>
+          <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+      </div>
+      <!-- Far right col -->
+      <div class="cat-col">
+        <a href="#products" class="cat-card short">
+          <img src="https://images.unsplash.com/photo-1601924582970-9238bcb495d9?w=600&h=300&fit=crop" alt="Nuts & Dried Fruits">
+          <div class="cat-overlay">
+            <div class="cat-tag">Energy Packed</div>
+            <div class="cat-name">Nuts & Dried Fruits</div>
+            <div class="cat-count">60+ options</div>
+          </div>
+          <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+        <a href="#products" class="cat-card short">
+          <img src="https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=600&h=300&fit=crop" alt="Honey & Sweeteners">
+          <div class="cat-overlay">
+            <div class="cat-tag">Natural & Raw</div>
+            <div class="cat-name">Honey & Sweeteners</div>
+            <div class="cat-count">22 products</div>
+          </div>
+          <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="products-inner">
+    <div class="section-header fade-up">
+      <div class="section-tag">Featured Products</div>
+      <h2 class="section-title">Our <em>Best Sellers</em></h2>
+      <p class="section-desc">Hand-picked by our team, loved by thousands of families. Authentic flavors, guaranteed freshness.</p>
+    </div>
+    <div class="prod-grid">
+
+      <!-- Card 1 -->
+      <div class="prod-card fade-up">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1586201375761-83865001e8ac?w=500&h=320&fit=crop" alt="Basmati Rice">
+          <span class="prod-badge badge-bestseller">Bestseller</span>
+          <div class="prod-fav"><i class="far fa-heart"></i></div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-category">Grains</div>
+          <div class="prod-name">Aged Basmati Rice</div>
+          <div class="prod-desc">Long-grain, aromatic, aged 2 years for deep flavour. 5kg premium pack.</div>
+          <div class="prod-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>(4.9 · 312 reviews)</span></div>
+          <div class="prod-footer">
+            <div><div class="prod-price">$14.99 <span class="prod-unit">/5kg</span></div></div>
+            <button class="add-btn"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="prod-card fade-up">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1506976785307-8732e854ad03?w=500&h=320&fit=crop" alt="Spice Kit">
+          <span class="prod-badge badge-premium">Premium</span>
+          <div class="prod-fav"><i class="far fa-heart"></i></div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-category">Spices</div>
+          <div class="prod-name">Artisan Spice Kit</div>
+          <div class="prod-desc">Cumin, coriander, turmeric & ginger — freshly ground, hand-blended collection.</div>
+          <div class="prod-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><span>(4.7 · 208 reviews)</span></div>
+          <div class="prod-footer">
+            <div><div class="prod-price">$11.49 <span class="prod-unit">/set</span></div></div>
+            <button class="add-btn"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="prod-card fade-up">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=500&h=320&fit=crop" alt="Wild Honey">
+          <span class="prod-badge badge-organic">Organic</span>
+          <div class="prod-fav"><i class="far fa-heart"></i></div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-category">Sweeteners</div>
+          <div class="prod-name">Wild Forest Honey</div>
+          <div class="prod-desc">Raw, unfiltered, cold-pressed from tropical forests. Rich in antioxidants.</div>
+          <div class="prod-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>(5.0 · 176 reviews)</span></div>
+          <div class="prod-footer">
+            <div><div class="prod-price">$17.99 <span class="prod-unit">/1kg</span></div></div>
+            <button class="add-btn"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="prod-card fade-up">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1515543237350-b3eea1ec8082?w=500&h=320&fit=crop&crop=center" alt="Lentils">
+          <span class="prod-badge badge-new">New</span>
+          <div class="prod-fav"><i class="far fa-heart"></i></div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-category">Legumes</div>
+          <div class="prod-name">Organic Lentil Mix</div>
+          <div class="prod-desc">Red, green & black lentils. High protein, fast-cooking. 2lb family pack.</div>
+          <div class="prod-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>(4.8 · 94 reviews)</span></div>
+          <div class="prod-footer">
+            <div><div class="prod-price">$8.99 <span class="prod-unit">/2lb</span></div></div>
+            <button class="add-btn"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="prod-card fade-up">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1601924582970-9238bcb495d9?w=500&h=320&fit=crop" alt="Mixed Nuts">
+          <span class="prod-badge badge-premium">Premium</span>
+          <div class="prod-fav"><i class="far fa-heart"></i></div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-category">Nuts & Seeds</div>
+          <div class="prod-name">Premium Mixed Nuts</div>
+          <div class="prod-desc">Cashews, almonds, walnuts & pistachios — lightly roasted, zero additives.</div>
+          <div class="prod-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><span>(4.6 · 143 reviews)</span></div>
+          <div class="prod-footer">
+            <div><div class="prod-price">$19.99 <span class="prod-unit">/kg</span></div></div>
+            <button class="add-btn"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="prod-card fade-up">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1589367920969-ab8e050bef04?w=500&h=320&fit=crop" alt="Chilli Powder">
+          <span class="prod-badge badge-organic">Organic</span>
+          <div class="prod-fav"><i class="far fa-heart"></i></div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-category">Spices</div>
+          <div class="prod-name">Smoked Chilli Powder</div>
+          <div class="prod-desc">Deep smoky heat from sun-dried peppers. Perfect for stews and marinades.</div>
+          <div class="prod-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>(4.9 · 227 reviews)</span></div>
+          <div class="prod-footer">
+            <div><div class="prod-price">$6.99 <span class="prod-unit">/200g</span></div></div>
+            <button class="add-btn"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 7 -->
+      <div class="prod-card fade-up">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=500&h=320&fit=crop" alt="Dried Hibiscus">
+          <span class="prod-badge badge-new">New</span>
+          <div class="prod-fav"><i class="far fa-heart"></i></div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-category">Botanicals</div>
+          <div class="prod-name">Dried Hibiscus (Zobo)</div>
+          <div class="prod-desc">Sun-dried, vibrant-red hibiscus petals for teas, drinks & infusions.</div>
+          <div class="prod-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><span>(4.7 · 88 reviews)</span></div>
+          <div class="prod-footer">
+            <div><div class="prod-price">$5.49 <span class="prod-unit">/250g</span></div></div>
+            <button class="add-btn"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 8 -->
+      <div class="prod-card fade-up">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=500&h=320&fit=crop" alt="Whole Oats">
+          <span class="prod-badge badge-bestseller">Bestseller</span>
+          <div class="prod-fav"><i class="far fa-heart"></i></div>
+        </div>
+        <div class="prod-info">
+          <div class="prod-category">Grains</div>
+          <div class="prod-name">Whole Rolled Oats</div>
+          <div class="prod-desc">Stone-milled, high-fibre oats with a creamy texture. Ideal for porridge & baking.</div>
+          <div class="prod-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><span>(4.9 · 391 reviews)</span></div>
+          <div class="prod-footer">
+            <div><div class="prod-price">$9.49 <span class="prod-unit">/2kg</span></div></div>
+            <button class="add-btn"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="view-all-wrap fade-up">
+      <a href="#contact" class="btn-primary">View Full Catalog <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER -->
+<div class="banner-section">
+  <div class="banner-inner">
+    <div class="banner-left fade-up">
+      <div class="banner-tag"><i class="fas fa-truck-fast"></i> Delivery Promise</div>
+      <h2 class="banner-title">Farm-Sourced.<br><em>Always Fresh.</em><br>Delivered to You.</h2>
+      <p class="banner-desc">We work directly with over 200 smallholder farms and cooperative societies across West Africa. Every order leaves our facility the same day, packed in eco-friendly, compostable packaging designed to preserve freshness.</p>
+      <div style="display:flex; gap:14px; flex-wrap:wrap;">
+        <a href="#products" class="btn-primary" style="background:var(--gold); border-color:var(--gold); color:white;">Shop Now <i class="fas fa-shopping-basket"></i></a>
+        <a href="#about" class="btn-secondary" style="border-color:rgba(255,255,255,0.3); color:rgba(255,255,255,0.8);">Learn More</a>
+      </div>
+    </div>
+    <div class="banner-imgs fade-up">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=280&fit=crop" alt="Food preparation">
+      <img src="https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400&h=280&fit=crop" alt="Market grains">
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-imgs fade-up">
+      <img src="https://images.unsplash.com/photo-1543362906-acfc16c67564?w=400&h=380&fit=crop&crop=center" alt="Farmer" class="about-img-1">
+      <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&h=380&fit=crop" alt="Harvest" class="about-img-2">
+      <img src="https://images.unsplash.com/photo-1579113800032-c38bd7635818?w=800&h=260&fit=crop&crop=center" alt="Market spices" class="about-img-3">
+    </div>
+    <div class="about-right fade-up">
+      <div class="about-mini-tag"><i class="fas fa-leaf"></i> Our Story</div>
+      <h2 class="about-title">Rooted in <em>Tradition,</em><br>Grown with Purpose</h2>
+      <p class="about-desc">Food Mall was founded by a collective of food lovers who believed that the best ingredients tell a story. We trace every item back to its source — real farmers, real land, real care. From the paddy fields to your kitchen, we preserve the integrity of every grain, spice, and seed.</p>
+      <p class="about-desc">No artificial preservatives. No bulk imports from unknown origins. Just honest food, honestly sourced — and delivered with love.</p>
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-award"></i></div>
+          <div>
+            <div class="feature-name">Certified Organic</div>
+            <div class="feature-desc">Third-party organic certification on all produce.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-truck-fast"></i></div>
+          <div>
+            <div class="feature-name">Same-Day Dispatch</div>
+            <div class="feature-desc">Orders before 2pm shipped same day, guaranteed.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-handshake"></i></div>
+          <div>
+            <div class="feature-name">Fair Trade</div>
+            <div class="feature-desc">Farmers earn fair wages — always.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-recycle"></i></div>
+          <div>
+            <div class="feature-name">Eco Packaging</div>
+            <div class="feature-desc">100% compostable, plastic-free packing.</div>
+          </div>
+        </div>
+      </div>
+      <a href="#contact" class="btn-primary">Get in Touch <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="reviews">
+  <div class="reviews-inner">
+    <div class="section-header fade-up">
+      <div class="section-tag">Customer Love</div>
+      <h2 class="section-title">What Our <em>Customers Say</em></h2>
+      <p class="section-desc">Over 12,000 happy families trust Food Mall for their weekly foodstuffs. Here's what some of them think.</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card fade-up">
+        <div class="review-quote">"</div>
+        <p class="review-text">I've never tasted basmati like this before. The aroma when it's cooking fills the whole house. My kids refuse to eat any other rice now — that's the ultimate endorsement!</p>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <div class="reviewer">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&h=100&fit=crop&crop=face" alt="Customer" class="reviewer-img">
+          <div>
+            <div class="reviewer-name">Amaka Okonkwo</div>
+            <div class="reviewer-loc">Lagos, Nigeria</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card fade-up">
+        <div class="review-quote">"</div>
+        <p class="review-text">The spice kit is genuinely incredible. I gifted one to my sister in London and she called me immediately — the flavour of the cumin alone is better than anything she's found there.</p>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <div class="reviewer">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face" alt="Customer" class="reviewer-img">
+          <div>
+            <div class="reviewer-name">Emeka Tunde</div>
+            <div class="reviewer-loc">Abuja, Nigeria</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card fade-up">
+        <div class="review-quote">"</div>
+        <p class="review-text">Delivery was remarkably fast — ordered at noon and it arrived by 5pm! The honey is the best I've ever had. Thick, dark, fragrant. I order a jar every two weeks without fail.</p>
+        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <div class="reviewer">
+          <img src="https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?w=100&h=100&fit=crop&crop=face" alt="Customer" class="reviewer-img">
+          <div>
+            <div class="reviewer-name">Chidinma Eze</div>
+            <div class="reviewer-loc">Port Harcourt, Nigeria</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-left fade-up">
+      <div class="section-tag" style="justify-content:flex-start; margin-bottom:14px;">Contact Us</div>
+      <h2 class="about-title" style="font-family:'Playfair Display',serif; font-size:clamp(1.8rem,2.5vw,2.4rem); margin-bottom:14px;">Let's Talk <em>Food</em></h2>
+      <p class="about-desc" style="margin-bottom:0;">Have a question? Want to place a bulk order? Looking for a specific ingredient? Reach out — our team responds within 24 hours, or catch us instantly on WhatsApp.</p>
+      <div class="contact-info-cards">
+        <a href="tel:+2348123456789" class="contact-info-card">
+          <div class="contact-info-icon icon-phone"><i class="fas fa-phone-alt"></i></div>
+          <div>
+            <div class="contact-info-label">Phone</div>
+            <div class="contact-info-val">+234 812 345 6789</div>
+          </div>
+        </a>
+        <a href="mailto:hello@foodmall.africa" class="contact-info-card">
+          <div class="contact-info-icon icon-email"><i class="fas fa-envelope"></i></div>
+          <div>
+            <div class="contact-info-label">Email</div>
+            <div class="contact-info-val">hello@foodmall.africa</div>
+          </div>
+        </a>
+        <a href="https://wa.me/2348123456789" target="_blank" class="contact-info-card">
+          <div class="contact-info-icon icon-wa"><i class="fab fa-whatsapp"></i></div>
+          <div>
+            <div class="contact-info-label">WhatsApp</div>
+            <div class="contact-info-val">Chat instantly with our team</div>
+          </div>
+        </a>
+        <div class="contact-info-card" style="cursor:default;">
+          <div class="contact-info-icon icon-addr"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <div class="contact-info-label">Address</div>
+            <div class="contact-info-val">14 Balogun Street, Lagos Island, Nigeria</div>
+          </div>
+        </div>
+      </div>
+      <div class="map-wrap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126952.39541136528!2d3.319496212396564!3d6.524379311285207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8b2ae68280c1%3A0xdc9e87a367c3d9cb!2sLagos%2C%20Nigeria!5e0!3m2!1sen!2sus!4v1710000000000!5m2!1sen!2sus" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+
+    <div x-data="contactForm()" class="contact-form-wrap fade-up">
+      <div class="form-title">Send a Message</div>
+      <p class="form-sub">We'd love to hear from you. Tell us what you need and we'll get back to you promptly.</p>
+      <form @submit.prevent="submitForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Full Name *</label>
+            <input type="text" x-model="form.name" class="form-input" placeholder="Jane Adeyemi" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address *</label>
+            <input type="email" x-model="form.email" class="form-input" placeholder="jane@example.com" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" x-model="form.phone" class="form-input" placeholder="+234 800 000 0000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subject</label>
+            <input type="text" x-model="form.subject" class="form-input" placeholder="Order / Inquiry / Bulk Purchase">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group full" style="grid-column:span 2;">
+            <label class="form-label">Message *</label>
+            <textarea rows="4" x-model="form.message" class="form-input" placeholder="Tell us what you'd like to order, or ask us anything about our products…" required></textarea>
+          </div>
+        </div>
+        <button type="submit" class="form-submit">
+          <i class="fas fa-paper-plane"></i> Send Message
+        </button>
+        <div x-show="successMessage" x-transition class="form-success" x-text="successMessage"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <div class="footer-logo-icon"><i class="fas fa-seedling"></i></div>
+          <span class="footer-brand"><span>Food</span>Mall</span>
+        </div>
+        <p class="footer-tagline">Bringing authentic, farm-fresh foodstuffs to your doorstep. Taste tradition, embrace health — one wholesome ingredient at a time.</p>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#categories">Shop Categories</a></li>
+          <li><a href="#products">Featured Products</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Popular Items</div>
+        <ul class="footer-links">
+          <li><a href="#">Aged Basmati Rice</a></li>
+          <li><a href="#">Artisan Spice Kits</a></li>
+          <li><a href="#">Wild Forest Honey</a></li>
+          <li><a href="#">Organic Lentils</a></li>
+          <li><a href="#">Dried Zobo (Hibiscus)</a></li>
+          <li><a href="#">Premium Mixed Nuts</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Customer Care</div>
+        <ul class="footer-links">
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Returns & Refunds</a></li>
+          <li><a href="#">Bulk Orders</a></li>
+          <li><a href="#">Track Your Order</a></li>
+          <li><a href="#">FAQs</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Food Mall · All rights reserved · Wholesome goodness, delivered.</span>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function contactForm() {
+    return {
+      form: { name: '', email: '', phone: '', subject: '', message: '' },
+      successMessage: '',
+      submitForm() {
+        if (this.form.name && this.form.email && this.form.message) {
+          this.successMessage = `✨ Thank you, ${this.form.name}! We've received your message and will respond within 24 hours.`;
+          this.form = { name: '', email: '', phone: '', subject: '', message: '' };
+          setTimeout(() => { this.successMessage = ''; }, 6000);
+        } else {
+          alert('Please fill in all required fields (Name, Email, Message).');
+        }
+      }
+    }
+  }
+  window.contactForm = contactForm;
+
+  // Scroll fade-up animation
+  const fadeEls = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  fadeEls.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
